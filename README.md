@@ -1,6 +1,6 @@
 # Interpreter
 
-> An interpreter written in Go for a js-like programming language
+> An interpreter for a js-like programming language written in Go 
 
 
 
@@ -17,6 +17,12 @@ This interpreter supports a variety of programming language features:
 - Variable bindings
 - Integers, Booleans, Null, Strings
 - Arithmetic expressions
+- Functions, Calls
+- Conditionals
+- Prefix and Infix expressions
+- Array data structure
+- Hash data structure
+- Built in functions
 
 
 
@@ -34,6 +40,21 @@ go run main.go
 
 
 ### Usage
+
+Once the interpreter is running, you can interact with it using the REPL (Read-Evaluate-Print-Loop).
+Here is an example of creating and calling a function and some arithmetic:
+```
+>> let sum = fn(x, y, z) {x + y + z};
+>> print(sum(3, 5 * 4, 8 - 6));
+25
+null
+
+>> print(3 + 2 * 4 - 5)
+6
+null
+```
+The syntax is similar to C and JavaScript, making it easy to pick up and start using.
+
 
 
 ## Lexing
