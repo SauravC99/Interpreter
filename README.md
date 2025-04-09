@@ -37,6 +37,15 @@ Start the interactive REPL with this command:
 cd Interpreter/
 go run main.go
 ```
+You can also use the build command and build the project after cloning:
+```
+cd Interpreter/
+go build -o interpreter
+```
+After building, you will have an executable file named `interpreter` (or `interpreter.exe` on Windows). Run it to start the interactive REPL:
+```
+./interpreter
+```
 
 
 ### Usage
