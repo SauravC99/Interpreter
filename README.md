@@ -93,3 +93,14 @@ type Lexer struct {
 The `input` field holds the source code to be lexed, the `position` and `readPosition` fields are pointers to positions in the input, and the `ch` field holds the actual character from the input.
 
 
+
+### Tokens
+
+Tokens are small, easily categorizable data structures.
+This interpreter implements tokens as a data structure with fields that hold the type of token it is (int, minus, semicolon, L or R bracket), and the literal char(s) which make up that token.
+```go
+type Token struct {
+	Type    TokenType // TokenType -> string
+	Literal string
+}
+```
