@@ -106,3 +106,36 @@ type Token struct {
 }
 ```
 
+Here is an example of lexing a statement which contains multiple different symbols (formatted for readability):
+```
+>> let result = fn(x, y) {x + 99 / y == x * "three" - !true};
+
+{Type:LET       Literal:let}
+{Type:IDENT     Literal:result}
+{Type:=         Literal:=}
+{Type:FUNCTION  Literal:fn}
+{Type:(         Literal:(}
+{Type:IDENT     Literal:x}
+{Type:,         Literal:,}
+{Type:IDENT     Literal:y}
+{Type:)         Literal:)}
+{Type:{         Literal:{}
+{Type:IDENT     Literal:x}
+{Type:+         Literal:+}
+{Type:INT       Literal:99}
+{Type:/         Literal:/}
+{Type:IDENT     Literal:y}
+{Type:==        Literal:==}
+{Type:IDENT     Literal:x}
+{Type:*         Literal:*}
+{Type:STRING    Literal:three}
+{Type:-         Literal:-}
+{Type:!         Literal:!}
+{Type:TRUE      Literal:true}
+{Type:}         Literal:}}
+{Type:;         Literal:;}
+```
+All of these tokens have the type of token in the `Type` field, along with the original source code representation attached in the `Literal` field.
+For example with the variable name `result` the token generated is of type identifier with the literal field being the variable name.
+As you can see, whitespace and newline characters are not converted into tokens, as whitespace length is not significant in this programming language.
+In other languages, like Python, length of whitespace is significant.
