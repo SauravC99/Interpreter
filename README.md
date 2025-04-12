@@ -81,3 +81,15 @@ After that, the evaluator will traverse the Abstract Syntax Tree and interpret i
 ---------------        ----------        -------
                 Lexer             Parser
 ```
+This interpreter implements the lexer data structure as follows:
+```go
+type Lexer struct {
+	input        string // source code
+	position     int    // current position in input (current char pos)
+	readPosition int    // current reading position (after current)
+	ch           byte   // current char looking at
+}
+```
+The `input` field holds the source code to be lexed, the `position` and `readPosition` fields are pointers to positions in the input, and the `ch` field holds the actual character from the input.
+
+
