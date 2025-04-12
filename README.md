@@ -42,7 +42,8 @@ You can also use the build command and build the project after cloning:
 cd Interpreter/
 go build -o interpreter
 ```
-After building, you will have an executable file named `interpreter` (or `interpreter.exe` on Windows). Run it to start the interactive REPL:
+After building, you will have an executable file named `interpreter` (or `interpreter.exe` on Windows).
+Run it to start the interactive REPL:
 ```
 ./interpreter
 ```
@@ -81,6 +82,7 @@ After that, the evaluator will traverse the Abstract Syntax Tree and interpret i
 ---------------        ----------        -------
                 Lexer             Parser
 ```
+
 This interpreter implements the lexer data structure as follows:
 ```go
 type Lexer struct {
@@ -93,7 +95,6 @@ type Lexer struct {
 The `input` field holds the source code to be lexed, the `position` and `readPosition` fields are pointers to positions in the input, and the `ch` field holds the actual character from the input.
 
 
-
 ### Tokens
 
 Tokens are small, easily categorizable data structures.
@@ -104,3 +105,4 @@ type Token struct {
 	Literal string
 }
 ```
+
