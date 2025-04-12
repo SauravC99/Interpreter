@@ -139,3 +139,105 @@ All of these tokens have the type of token in the `Type` field, along with the o
 For example with the variable name `result` the token generated is of type identifier with the literal field being the variable name.
 As you can see, whitespace and newline characters are not converted into tokens, as whitespace length is not significant in this programming language.
 In other languages, like Python, length of whitespace is significant.
+
+
+
+## Parsing
+
+The Parser is the component which takes the sequence of tokens produced by the Lexer and builds a data structure, such as a tree or some other hierarchical representation.
+It checks the structure against the grammar rules (most commonly in Backus-Naur Form) of the programming language to ensure the tokens form valid constructs.
+It also checks for correct syntax in the process.
+The data structure it generates for the internal representation of the source code is called a syntax tree.
+So, parsers take source code as input and produce a data structure that represents the source code.
+While building the data structure, parsers also analyze the input, checking that it fits to the expected structure.
+Because of this, parsing is also called syntactic analysis.
+
+
+### Abstract Syntax Tree
+
+This Parser generates an Abstract Syntax Tree.
+It is abstract since it omits certain details which are visible in the source code such as whitespace, newlines, semicolons, comments, braces, brackets, and parentheses.
+These details are not represented in the Abstract Syntax Tree, but they help guide the Parser when constructing it.
+
+Here is a simplified example of an Abstract Syntax Tree for the statement `let x = 10 + 5;`:
+```
+          --------
+		  | root |
+		  --------
+		     |
+           -------
+		   | let |
+		   -------
+		   /     \
+	   -----   --------------
+	   | x |   | expression |
+	   -----   --------------
+	            /     |     \
+			------  -----  -----	
+			| 10 |  | + |  | 5 |
+			------  -----  -----
+```
+
+
+### Recursive Descent Parsing (Pratt parsing)
+
+This Parser is a recursive descent parser, more specifically a top down operator precedence parser.
+It is also known as a Pratt parser, named after its creator Vaughan Pratt.
+The main idea behind a Pratt parser is to associate parsing functions with token types.
+When a certain token is found, the parser calls specific parsing functions to parse the expression and returns an Abstract Syntax Tree node which represents it.
+This interpreter implements that idea with maps for prefix and infix functions inside the parser structure:
+```go
+prefixParseFns map[token.TokenType]prefixParseFn
+infixParseFns  map[token.TokenType]infixParseFn
+```
+
+The maps associate `TokenType` which is the token identifier, with `prefixParseFn` or `infixParseFn` types. These types are defined as:
+```go
+type (
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
+```
+
+`prefixParseFn` is any function that returns an Expression node from the Abstract Syntax Tree. This would be `-5` or `!true`.
+
+`infixParseFn` is any function that takes an Expression node as an argument and returns an Expression node. This would be `1 + 2` or `x * y`.
+
+A recursive descent parser uses the strategy of top down parsing, where it starts by constructing the root node of the Abstract Syntax Tree and then works its way down.
+The operator precedence, also known as order of operations, describes which priority the different operators have.
+As we can see in this example:
+```
+10 + 10 * 10
+```
+The answer should be `110` instead of `200` because the `*` operator has a higher precedence than the `+` operator.
+The `*` operator is more important than the `+` operator so it gets evaluated before the other.
+This interpreter implements operator precedence as follows:
+```go
+const (
+	LOWEST
+	EQUALS      // ==
+	LESSGREATER // > or <
+	SUM         // + or -
+	PRODUCT     // * or /
+	PREFIX      // -X or !X
+	CALL        // myFunction(X)
+	INDEX       // array[index]
+)
+```
+
+The operators are in ascending order.
+`LOWEST` is the lowest and default precedence with a value of `1` and they increase in precedence as we go down the list.
+This allows us to correctly parse expressions which contain different operators:
+
+```
+>> let result = fn(x, y) {x + 99 / y == x * "three"};
+let result = fn(x, y) ((x + (99 / y)) == (x * three));
+
+>> let z = x * y / 3 - 5 * 8 + 9898;
+let z = ((((x * y) / 3) - (5 * 8)) + 9898);
+
+>> let x = 6 - 5 + 4 * 3 / 2 + 1 < 20;
+let x = ((((6 - 5) + ((4 * 3) / 2)) + 1) < 20);
+```
+The `*` and `/` operators have a larger precedence than the `+` and `-` operators.
+The recursive nature of this parser means those operators are nested deeper in the Abstract Syntax Tree and will be evaluated earlier, maintaining the correct order of operations.
