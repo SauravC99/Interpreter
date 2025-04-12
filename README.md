@@ -70,10 +70,11 @@ The syntax is similar to C and JavaScript, making it easy to pick up and start u
 
 The Lexer, also known as scanner or tokenizer, is the component that performs lexical analysis to turn source code into tokens.
 Lexing is the first step in the process of interpreting code.
-While plain text is easy to work with in an editor, it becomes cumbersome really fast when trying to interpret it as a programming language.
+While plain text is easy to work with in an editor, it becomes tedious really fast when trying to interpret it as a programming language.
 This means we need to represent the source code in another form that is easier to work with, such as tokens.
 The lexer also removes irrelevant details in the source code such as comments or whitespace, depending on the programing language specification, further increasing ease of working with it.
 Later these tokens will be fed into the parser, which transforms them again and turns the tokens into an Abstract Syntax Tree.
+After that, the evaluator will traverse the Abstract Syntax Tree and interpret it to evaluate the result.
 ```
 ---------------        ----------        -------
 | Source Code | -----> | Tokens | -----> | AST |
