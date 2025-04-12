@@ -279,3 +279,221 @@ The final call to `Eval(node)` will return the final result.
 Since the function is recursive, it will also work for more complex expressions, such as `2 + 3 * 4 - 5`.
 This is because the function recursively calls itself two times to evaluate the left and right sides, which can lead to the evaluation of another infix expression or integer or boolean or so on.
 This will continue until the final topmost call to `Eval(node)` returns the result.
+
+
+
+## Language Features
+
+
+### Variables
+
+```
+>> let x = 5;
+>> print(x);
+5
+null
+>>
+>> let y = x + 4;
+>> print(y);
+9
+null
+```
+
+
+### Functions and Function Calls
+
+Functions are defined using `fn`:
+```
+>> let multiplyTwo = fn(x) {x * 2;};
+>> multiplyTwo(25);
+50
+
+>> let subtract = fn(x, y) {x - y};
+>> subtract(100 / 5, 4 * 3)
+8
+```
+
+
+### Conditionals
+
+```
+if (6 + 7 == 13) {
+	return 111
+} else {
+	return 999
+};
+111
+
+if (6 + 7 != 13) {
+	return 111
+} else {
+	return 999
+};
+999
+```
+
+
+### Arithmetic Expressions
+
+Solves arithmetic expressions with respect to order of operations:
+```
+>> 1 + 2 - 3
+0
+
+>> 6 * 5 / 2
+15
+```
+
+
+### Booleans
+
+```
+>> 5 == 5
+true
+
+>> !true
+false
+
+>> !!!false
+true
+
+>> 5 * 9 > 9 - 5
+true
+
+>> (5 < 5 == false) != true
+false
+```
+
+
+### Strings
+
+```
+>> let a = "Hello";
+>> let b = "World!";
+>> let whole = fn(x, y) {x + " " + y};
+>> whole(a, b);
+Hello World!
+```
+
+
+### Arrays
+
+```
+>> let arr = [1, 5, "six", 99];
+>> arr[1]
+5
+>> arr[2]
+six
+>> len(arr[2])
+3
+>> let y = arr[0] * arr[1];
+>> y
+5
+>> arr[1 + 2];
+99
+```
+Arrays can also evaluate functions into elements
+```
+>> let triple = fn(x) {x * 3};
+>> [1, 2, triple(3), 5 + 8, 12 / 3]
+[1, 2, 9, 13, 4]
+```
+
+
+### Hashes
+
+```
+>> let hash = {"name": "Joe", "age": 25, true: "yes TRUE", 77: "this is num"};
+>> hash["name"]
+Joe
+>> hash[true]
+yes TRUE
+>> hash[78 - 1]
+this is num
+>> hash[1 < 5]
+yes TRUE
+
+>> let employees = [{"name": "Joe", "age": 25}, {"name": "Joey", "age": 45}];
+>> employees[0]["name"]
+Joe
+>> employees[1]["age"]
+45
+>> employees[1]["age"] + employees[0]["age"];
+70
+```
+
+
+### Environment Tracking
+
+```
+>> let x = 10;
+>> let y = x > 8;
+>> let z = x / 2;
+>> if (y) {10} else {20};
+10
+>> let a = if (z > x) {1} else {100};
+>> a * z * x
+5000
+```
+
+
+### Closures
+
+```
+#closures
+>> let multiplier = fn(x) { fn(y) {x * y} };
+>> let multFive = multiplier(5);
+>> multFive(10);
+50
+
+>> let multNegFour = multiplier(-4);
+>> multNegFour(9);
+-36
+```
+
+
+### Built-in Functions
+
+For strings:
+```
+>> len("Hello World!");
+12
+>> len("")
+0
+>> len(23422)
+ERROR: argument to `len` not supported, got INTEGER
+>> len("hello", 5)
+ERROR: wrong number of arguments. got=2, want=1
+```
+
+For arrays:
+```
+>> let arr = [2, 4, 6, 8, 10, 12];
+>> len(arr);
+6
+>> first(arr);
+2
+>> last(arr);
+12
+>> rest(arr);
+[4, 6, 8, 10, 12]
+>> rest(rest(rest(arr)));
+[8, 10, 12]
+>>
+>> let arrB = push(arr, 30);
+>> arr
+[2, 4, 6, 8, 10, 12]
+>> arrB
+[2, 4, 6, 8, 10, 12, 30]
+```
+
+```
+>> print("hello", "world", "can", "you", "hear", "me?");
+hello
+world
+can
+you
+hear
+me?
+null
+```
