@@ -241,3 +241,41 @@ let x = ((((6 - 5) + ((4 * 3) / 2)) + 1) < 20);
 ```
 The `*` and `/` operators have a larger precedence than the `+` and `-` operators.
 The recursive nature of this parser means those operators are nested deeper in the Abstract Syntax Tree and will be evaluated earlier, maintaining the correct order of operations.
+
+
+
+## Evaluating
+
+The Evaluator is the component that takes the Abstract Syntax Tree built by the Parser and interprets it.
+It is implemented as a tree-walking interpreter, where it traverses the Abstract Syntax Tree, visits each node and evaluates them.
+This interpreter does it with a recursive function called `Eval(node)`.
+Here it a simplified pseudocode version:
+```go
+func Eval(node) {
+	if node == integer {
+		return node.intValue
+	}
+	else if node == boolean {
+		return node.boolValue
+	}
+	else if node == infixExpression {
+		leftSide = Eval(node.left)
+		rightSide = Eval(node.right)
+
+		if node.operator == + {
+			return leftSide + rightSide
+		}
+		else if node.operator == - {
+			return leftSide - rightSide
+		}
+	}
+}
+```
+
+As the Evaluator traverses the Abstract Sytnax Tree, it will call `Eval(node)` and execute different actions based on the type of node it is on.
+For example, if the node the Evaluator is currently on is an integer or bool, it will return an internal representation of that integer or bool.
+If the current node is an infix expression, such as `2 + 3`, the Evaluator will recursively call `Eval(node)` on the left and right sides of that expression, resolve the numbers to their internal representation, and finally add them together.
+The final call to `Eval(node)` will return the final result.
+Since the function is recursive, it will also work for more complex expressions, such as `2 + 3 * 4 - 5`.
+This is because the function recursively calls itself two times to evaluate the left and right sides, which can lead to the evaluation of another infix expression or integer or boolean or so on.
+This will continue until the final topmost call to `Eval(node)` returns the result.
