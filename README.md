@@ -497,3 +497,36 @@ hear
 me?
 null
 ```
+
+
+
+## Error Handling
+
+If an error is encountered, this interpreter will display a message.
+
+Parser errors:
+```
+>> let x 5;
+        expected next token to be =, got INT instead
+
+>> let = 5;
+        expected next token to be IDENT, got = instead
+
+>> let 5;
+        expected next token to be IDENT, got INT instead
+
+>> first([1,2,3]
+        expected next token to be ), got EOF instead
+```
+
+Evaluation errors:
+```
+>> rest(5 == 5);
+ERROR: argument to `rest` must be ARRAY, got BOOLEAN
+
+>> print([1,2,3] + 5);
+ERROR: type mismatch: ARRAY + INTEGER
+
+>> print(5 + "five");
+ERROR: type mismatch: INTEGER + STRING
+```
