@@ -161,21 +161,21 @@ These details are not represented in the Abstract Syntax Tree, but they help gui
 
 Here is a simplified example of an Abstract Syntax Tree for the statement `let x = 10 + 5;`:
 ```
-          --------
+		  --------
 		  | root |
 		  --------
 		     |
-           -------
-		   | let |
-		   -------
-		   /     \
-	   -----   --------------
-	   | x |   | expression |
-	   -----   --------------
-	            /     |     \
-			------  -----  -----	
-			| 10 |  | + |  | 5 |
-			------  -----  -----
+		  -------
+		  | let |
+		  -------
+		  /     \
+	       -----   --------------
+	       | x |   | expression |
+	       -----   --------------
+			/     |     \
+		    ------  -----  -----	
+		    | 10 |  | + |  | 5 |
+		    ------  -----  -----
 ```
 
 
