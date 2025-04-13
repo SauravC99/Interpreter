@@ -258,6 +258,7 @@ func Eval(node) {
 	else if node == boolean {
 		return node.boolValue
 	}
+	// infix expression example: 2 + 3
 	else if node == infixExpression {
 		leftSide = Eval(node.left)
 		rightSide = Eval(node.right)
