@@ -77,7 +77,7 @@ The Lexer, also known as scanner or tokenizer, is the component that performs le
 Lexing is the first step in the process of interpreting code.
 While plain text is easy to work with in an editor, it becomes tedious really fast when trying to interpret it as a programming language.
 This means we need to represent the source code in another form that is easier to work with, such as tokens.
-The lexer also removes irrelevant details in the source code such as comments or whitespace, depending on the programing language specification, further increasing ease of working with it.
+The lexer also removes irrelevant details in the source code such as comments or whitespace, depending on the programming language specification, further increasing ease of working with it.
 Later these tokens will be fed into the parser, which transforms them again and turns the tokens into an Abstract Syntax Tree.
 After that, the evaluator will traverse the Abstract Syntax Tree and interpret it to evaluate the result.
 ```
@@ -277,7 +277,7 @@ func Eval(node) {
 }
 ```
 
-As the Evaluator traverses the Abstract Sytnax Tree, it will call `Eval(node)` and execute different actions based on the type of node it is on.
+As the Evaluator traverses the Abstract Syntax Tree, it will call `Eval(node)` and execute different actions based on the type of node it is on.
 For example, if the node the Evaluator is currently on is an integer or bool, it will return an internal representation of that integer or bool.
 If the current node is an infix expression, such as `2 + 3`, the Evaluator will recursively call `Eval(node)` on the left and right sides of that expression, resolve the numbers to their internal representation, and finally add them together.
 The final call to `Eval(node)` will return the final result.
