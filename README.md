@@ -6,9 +6,9 @@
 
 ## Overview
 
-This interpreter is an implementation of the Monkey programming language, as described in [Writing an Interpreter in Go](https://interpreterbook.com/#the-monkey-programming-language).
+This interpreter is an implementation of the Monkey programming language, following the book [Writing an Interpreter in Go](https://interpreterbook.com/#the-monkey-programming-language).
 Monkey is a programming language designed to learn interpreters and how they work.
-I went through this book and learned a lot of new things, from different lexing and parsing strategies, to a deeper understanding of the GoLang Programming Language.
+I went through this book and learned a lot of new things, from different lexing and parsing strategies, to a deeper understanding of the Go Programming Language.
 This repository contains a working implementation of Monkey along with some extensions I have made.
 
 This interpreter follows core steps to turn the input source code into something that can be run and evaluated.
