@@ -1,13 +1,17 @@
 # Interpreter
 
-> An interpreter for a js-like programming language written in Go 
+> An interpreter for a js-like programming language "Monkey" written in Go 
 
 
 
 ## Overview
 
-This interpreter is an inplementation of the Monkey programming language.
-It follows core steps to turn the input code into something that can be run and evaluated.
+This interpreter is an implementation of the Monkey programming language, as described in [Writing an Interpreter in Go](https://interpreterbook.com/#the-monkey-programming-language).
+Monkey is a programming language designed to learn interpreters and how they work.
+I went through this book and learned a lot of new things, from different lexing and parsing strategies, to a deeper understanding of the GoLang Programming Language.
+This repository contains a working implementation of Monkey along with some extensions I have made.
+
+This interpreter follows core steps to turn the input source code into something that can be run and evaluated.
 We start with the lexer which turns the input code into tokens.
 These tokens then are parsed through the parser to generate an Abstract Syntax Tree (AST).
 After this the evaluator walks through and executes the AST to produce the desired result.
